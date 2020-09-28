@@ -1,0 +1,23 @@
+[deploy]
+deploy ansible_host=10.240.0.10
+
+[proxy]
+proxy ansible_host=10.240.0.12 ansible_ssh_private_key_file=../.vagrant/machines/proxy/virtualbox/private_key
+
+[masters]
+master-[0:2] ansible_host=10.240.0.3[0:2]
+
+[nodes]
+node-[0:2] ansible_host=10.240.0.4[0:2]
+
+[kuber:children]
+masters
+nodes
+
+
+[all:vars]
+ansible_connection=ssh
+ansible_user=vagrant
+
+
+

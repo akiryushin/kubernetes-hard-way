@@ -1,0 +1,15 @@
+- name: PRE REQUIREMENTS | DISABLE SWAP (1/2)
+  shell: |
+    swapoff -a
+
+- name: PRE REQUIREMENTS | DISABLE SWAP (2/2)
+  lineinffile:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    state: 'absent'
+
+- name: PRE REQUIREMENTS | DISABLE SELINUX
+  command: setenforce 0
+  changed_when: false
+  register: result
+  failde_when: "'setenforce: SELinux is disabled' not in result.stderr and '' not in result.stdout"

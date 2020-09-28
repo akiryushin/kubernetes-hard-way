@@ -1,0 +1,6 @@
+- name: Ensure new hosts
+  hosts: all
+  become: yes
+
+  roles:
+    - hosts
