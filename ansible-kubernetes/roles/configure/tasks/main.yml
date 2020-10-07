@@ -1,0 +1,9 @@
+- name: UPDATE /etc/hosts file
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+
+- include: cluster.yml
+  when: inventory_hostname in groups['kuber']
+
+

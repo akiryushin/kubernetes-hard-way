@@ -1,0 +1,11 @@
+- name: INSTALL haproxy
+  package:
+    name: "{{ item.name | default(item) }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ haproxy_packages }}"
+
+- name: CONFIGURE haproxy
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: "Enable haproxy"

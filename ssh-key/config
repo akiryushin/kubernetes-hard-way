@@ -1,0 +1,5 @@
+Host *
+    User vagrant
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
+    IdentityFile ~/.ssh/kuber

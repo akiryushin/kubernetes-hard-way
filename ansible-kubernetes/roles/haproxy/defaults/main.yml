@@ -1,0 +1,5 @@
+haproxy_packages:
+  - name: haproxy
+    state: present
+  - name: net-tools
+    state: present

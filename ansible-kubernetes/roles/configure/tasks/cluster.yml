@@ -1,0 +1,21 @@
+- name: DISABLE SELinux (1/2)
+  command: setenforce 0
+  changed_when: false
+  register: result
+  failed_when: "'setenforce: SELinux is disabled' not in result.stderr and '' not in result.stdout"
+
+- name: DISABLE SELinux (2/2)
+  selinux:
+    state: disabled
+
+- name: DISABLE SWAP (1/2)
+  shell: |
+    swapoff -a
+  changed_when: true
+  when: ansible_swaptotal_mb > 0
+
+- name: DISABLE SWAP (2/2)
+  lineinfile:
+    path: '/etc/fstab'
+    regexp: ' swap '
+    state: 'absent'

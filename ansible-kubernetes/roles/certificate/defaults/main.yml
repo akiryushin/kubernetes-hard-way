@@ -1,0 +1,8 @@
+files:
+  - name: "admin-csr.json"
+  - name: "ca-config.json"
+  - name: "ca-csr.json"
+  - name: "kube-controller-manager-csr.json"
+  - name: "kube-proxy-csr.json"
+  - name: "kube-scheduler-csr.json"
+  - name: "service-account-csr.json"

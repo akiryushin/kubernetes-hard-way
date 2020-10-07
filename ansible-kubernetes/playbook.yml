@@ -3,4 +3,24 @@
   become: yes
 
   roles:
-    - hosts
+    - configure
+
+- name: Deploy haproxy
+  hosts: proxy
+  become: yes
+
+  roles:
+    - haproxy
+
+- name: Install tools
+  hosts: proxy
+  become: yes
+
+  roles:
+    - tools
+
+- name: Create cert
+  hosts: proxy
+
+  roles:
+    - certificate

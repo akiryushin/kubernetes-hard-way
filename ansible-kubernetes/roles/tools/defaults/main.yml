@@ -1,0 +1,7 @@
+tools:
+  - name: "cfssl"
+    url: "https://storage.googleapis.com/kubernetes-the-hard-way/cfssl/1.4.1/linux/cfssl"
+  - name: "cfssljson"
+    url: "https://storage.googleapis.com/kubernetes-the-hard-way/cfssl/1.4.1/linux/cfssljson"
+  - name: "kubectl"
+    url: "https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kubectl"

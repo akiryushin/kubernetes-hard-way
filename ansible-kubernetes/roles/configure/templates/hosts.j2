@@ -3,6 +3,5 @@
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
 {% for item in play_hosts %}
-{% set short_name = item.split('.') %}
-{{ hostvars[item]['ansible_host'] }}  {{ item }}.akiryushin.net {{ short_name[0] }}
+{{ hostvars[item].ansible_eth1.ipv4.address }}  {{ hostvars[item].ansible_nodename }}  {{ hostvars[item].ansible_nodename.split('.')[0] }} {{ item }}
 {% endfor %}
