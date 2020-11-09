@@ -1,13 +1,15 @@
 - name: Create dir
   file:
-    path: /opt/workers
+    path: /tmp/workers
+    owner: vagrant
+    group: vagrant
     state: directory
 
 - name: Generation configuration files
   template:
     src:  worker-csr.json.j2
-    dest: "/opt/workers/{{ item }}-csr.json"
-  with_item: "{{ groups['nodes'] }}"
+    dest: "/tmp/workers/{{ item }}-csr.json"
+  with_items: "{{ groups['nodes'] }}"
 
 - name: Generation Certificate Kubelet Client
   shell: |
@@ -15,9 +17,9 @@
       -ca=../ca.pem \
       -ca-key=../ca-key.pem \
       -config=../ca-config.json \
-      -hostname="{{ item }}","{{ hostvars[item].ansible_host }}" \
+      -hostname={{ hostvars[item].ansible_nodename.split('.')[0] }},{{ hostvars[item].ansible_host }} \
       -profile=kubernetes \
-      "{{ item }}"-csr.json | cfssljson -bare "{{ item }}"
+      {{ item }}-csr.json | cfssljson -bare {{ item }}
   args:
-    chdir: /opt/workers
+    chdir: /tmp/workers
   with_items: "{{ groups['nodes'] }}"

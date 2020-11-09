@@ -1,0 +1,31 @@
+- name: Download etcd
+  get_url:
+    url: "https://github.com/etcd-io/etcd/releases/download/v3.4.10/etcd-v3.4.10-linux-amd64.tar.gz"
+    dest: /tmp
+
+- name: Extract and install etcd
+  shell: |
+    tar -xvf etcd-v3.4.10-linux-amd64.tar.gz
+    sudo mv etcd-v3.4.10-linux-amd64/etcd* /usr/local/bin/
+  args:
+    chdir: /tmp
+
+- name: Configure the etcd Server
+  shell: |
+    sudo mkdir -p /etc/etcd /var/lib/etcd
+    sudo chmod 700 /var/lib/etcd
+    sudo cp ca.pem kubernetes-key.pem kubernetes.pem /etc/etcd
+
+- name: Generation service to etcd
+  template:
+    src: etcd.service.j2
+    dest: /etc/systemd/system/etcd.service
+  become: yes
+
+- name: Enable etcd Server
+  systemd:
+    state: started
+    name: etcd
+    enabled: yes
+    daemon_reload: yes
+  become: yes

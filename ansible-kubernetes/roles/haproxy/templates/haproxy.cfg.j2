@@ -45,7 +45,6 @@ defaults
     option                  httplog
     option                  dontlognull
     option http-server-close
-    option forwardfor       except 127.0.0.0/8
     option                  redispatch
     retries                 3
     timeout http-request    10s
@@ -62,8 +61,9 @@ defaults
 #---------------------------------------------------------------------
 
 frontend k8s
-    bind {{ hostvars[inventory_hostname].ansible_eth1.ipv4.address }}:6443
+    bind {{ ansible_host }}:6443
     mode tcp
+    option tcplog
     default_backend k8s
 
 backend k8s
@@ -72,6 +72,6 @@ backend k8s
     option tcplog
     option tcp-check
 {% for item in groups["masters"] %}
-    server {{ item }} {{ hostvars[item].ansible_host }}:6443 check
+    server {{ item }} {{ hostvars[item].ansible_host }}:6443 check inter 1000
 {% endfor %}
 

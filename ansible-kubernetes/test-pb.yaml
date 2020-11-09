@@ -1,0 +1,5 @@
+- name: TEST
+  hosts: localhost
+
+  roles:
+    - networkpods

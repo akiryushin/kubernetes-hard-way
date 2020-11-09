@@ -1,0 +1,19 @@
+- name: Generation Encryption Key
+  shell: head -c 32 /dev/urandom | base64
+  register: output_enc
+
+- name: Set var encryption_key
+  set_fact:
+    encryption_key: "{{ output_enc.stdout_lines[0] }}"
+
+- name: Generation Encryption Config File
+  template:
+    src:  encryption-config.yaml.j2
+    dest: "/tmp/encryption-config.yaml"
+
+- name: Distribute the Cliens and Server Encryption Config File
+  shell: |
+    scp encryption-config.yaml {{ item }}:~/
+  args:
+    chdir: /tmp
+  with_items: "{{ groups['masters'] }}"

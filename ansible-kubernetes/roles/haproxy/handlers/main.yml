@@ -3,3 +3,13 @@
     name: haproxy
     state: started
     enabled: yes
+
+- name: Disable selinux (1/2)
+  selinux:
+    state: disabled
+  listen: "Disable selinux"
+
+- name: Disable selinux (2/2)
+  command: setenforce 0
+  become: yes
+  listen: "Disable selinux"

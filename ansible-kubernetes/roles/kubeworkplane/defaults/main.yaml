@@ -1,0 +1,40 @@
+os_depend:
+  - name: socat
+    state: present
+  - name: conntrack
+    state: present
+  - name: ipset
+    state: present
+
+instal_dir:
+  - path: /etc/cni/net.d
+  - path: /opt/cni/bin
+  - path: /var/lib/kubelet
+  - path: /var/lib/kube-proxy
+  - path: /var/lib/kubernetes
+  - path: /var/run/kubernetes
+  - path: /home/vagrant/containerd
+  - path: /etc/containerd/
+
+url_worker_bin:
+  - url: https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.18.0/crictl-v1.18.0-linux-amd64.tar.gz
+  - url: https://github.com/opencontainers/runc/releases/download/v1.0.0-rc91/runc.amd64
+  - url: https://github.com/containernetworking/plugins/releases/download/v0.8.6/cni-plugins-linux-amd64-v0.8.6.tgz
+  - url: https://github.com/containerd/containerd/releases/download/v1.3.6/containerd-1.3.6-linux-amd64.tar.gz
+  - url: https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kubectl
+  - url: https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kube-proxy
+  - url: https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kubelet
+
+copy_files:
+  - name: 99-loopback.conf
+    path: /etc/cni/net.d/
+  - name: config.toml
+    path: /etc/containerd/
+  - name: containerd.service
+    path: /etc/systemd/system
+  - name: kubelet.service
+    path: /etc/systemd/system
+  - name: kube-proxy-config.yaml
+    path: /var/lib/kube-proxy
+  - name: kube-proxy.service
+    path: /etc/systemd/system

@@ -1,18 +1,11 @@
-[deploy]
-deploy ansible_host=10.240.0.10
-
 [proxy]
-proxy ansible_host=10.240.0.12
+proxy ansible_host=10.240.0.100
 
 [masters]
 master-0 ansible_host=10.240.0.30
-master-1 ansible_host=10.240.0.31
-master-2 ansible_host=10.240.0.32
 
 [nodes]
 node-0 ansible_host=10.240.0.40
-node-1 ansible_host=10.240.0.41
-node-2 ansible_host=10.240.0.42
 
 [kuber:children]
 masters

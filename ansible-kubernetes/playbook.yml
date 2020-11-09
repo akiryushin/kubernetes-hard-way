@@ -24,3 +24,16 @@
 
   roles:
     - certificate
+
+- name: Configure masters
+  hosts: masters
+
+  roles:
+    - etcd
+    - kubecontrolplane
+
+- name: Configure nodes
+  hosts: nodes
+
+  roles:
+    - kubeworkplane

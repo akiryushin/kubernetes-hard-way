@@ -3,10 +3,12 @@
   changed_when: false
   register: result
   failed_when: "'setenforce: SELinux is disabled' not in result.stderr and '' not in result.stdout"
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: DISABLE SELinux (2/2)
   selinux:
     state: disabled
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: DISABLE SWAP (1/2)
   shell: |

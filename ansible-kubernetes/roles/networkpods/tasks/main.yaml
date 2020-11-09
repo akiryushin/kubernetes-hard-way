@@ -1,0 +1,4 @@
+- name: Add routes
+  shell: |
+    sudo route add -net 10.200.{{ groups['nodes'].index(item) }}.0 netmask 255.255.255.0 gw {{ hostvars[item].ansible_host }}
+  with_items: "{{ groups['nodes']}}"
