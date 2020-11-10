@@ -37,3 +37,10 @@
 
   roles:
     - kubeworkplane
+
+- name: Deploy Core DNS
+  hosts: master-0
+
+  roles:
+    - kubedns
+

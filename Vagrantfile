@@ -31,28 +31,14 @@ ENV["LC_ALL"]    = "en_US.UTF-8"
 Vagrant.configure("2") do |config|
 
 
-    NodeCount        = 1
-    MasterCount      = 1
-
-    config.vm.define "deploy" do |deploy|
-        deploy.vm.network "private_network", ip: "10.240.0.101"
-        deploy.vm.hostname = "deploy-10-240-0-10.kuber.net"
-        deploy.vm.provider "virtualbox" do |vb|
-            vb.name   = "deploy"
-            vb.gui    = false
-            vb.cpus   = 1
-            vb.memory = "1024"
-        end
-
-        deploy.vm.provision "shell", inline: $sshKeyProvision, privileged: false
-        deploy.vm.provision "shell", inline: $commonCentosScript
-
-    end
+    NodeCount        = 2
+    MasterCount      = 2
+    config.vm.boot_timeout = 600
+    config.vbguest.auto_update = false
 
     config.vm.define "proxy" do |proxy|
         proxy.vm.box    = "centos/7"
         proxy.vm.network "private_network", ip: "10.240.0.100"
-        proxy.vm.box    = "centos/7"
         proxy.vm.hostname = "lb-10-240-0-11.kuber.net"
         proxy.vm.provider "virtualbox" do |vb|
             vb.name   = "lb"
@@ -89,7 +75,7 @@ Vagrant.configure("2") do |config|
         config.vm.define "node-#{i}" do |node|
             node.vm.box    = "ubuntu/bionic64"
             node.vm.network "private_network", ip: "10.240.0.4#{i}"
-            node.vm.hostname = "node-10-240-0-4#{i}.akiryushin.net"
+            node.vm.hostname = "node-10-240-0-4#{i}.kuber.net"
 
             node.vm.provider "virtualbox" do |vb|
                 vb.name   = "node-#{i}"
