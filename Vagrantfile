@@ -31,8 +31,8 @@ ENV["LC_ALL"]    = "en_US.UTF-8"
 Vagrant.configure("2") do |config|
 
 
-    NodeCount        = 2
-    MasterCount      = 2
+    NodeCount        = 1
+    MasterCount      = 1
     config.vm.boot_timeout = 600
     config.vbguest.auto_update = false
 
@@ -61,8 +61,8 @@ Vagrant.configure("2") do |config|
             master.vm.provider "virtualbox" do |vb|
                 vb.name   = "master-#{i}"
                 vb.gui    = false
-                vb.cpus   = 2
-                vb.memory = "2048"
+                vb.cpus   = 1
+                vb.memory = "1024"
             end
 
             master.vm.provision "shell", inline: $sshKeyProvision, privileged: false
@@ -80,8 +80,8 @@ Vagrant.configure("2") do |config|
             node.vm.provider "virtualbox" do |vb|
                 vb.name   = "node-#{i}"
                 vb.gui    = false
-                vb.cpus   = 2
-                vb.memory = "2048"
+                vb.cpus   = 1
+                vb.memory = "1024"
             end
 
             node.vm.provision "shell", inline: $sshKeyProvision, privileged: false

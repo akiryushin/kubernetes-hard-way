@@ -1,5 +1,6 @@
 - name: TEST
-  hosts: localhost
+  hosts: proxy
 
   roles:
-    - networkpods
+    - distribute
+    

@@ -1,0 +1,4 @@
+tools:
+  - name: cfssl
+  - name: cfssljson
+  - name: kubectl

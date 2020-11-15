@@ -1,0 +1,27 @@
+- name: Download distibutes
+  get_url:
+    url: "{{ item.url }}"
+    mode: '0777'
+    timeout: 30
+    dest: /tmp
+  with_items: "{{ distributes }}"
+  tags:
+    - never
+
+- name: Distribute to masters
+  shell: |
+    scp kube-apiserver kube-controller-manager kube-scheduler kubectl \
+    etcd-v3.4.10-linux-amd64.tar.gz {{ item }}:/tmp
+  args:
+    chdir: /tmp
+  with_items: "{{ groups['masters'] }}"
+  become: no
+
+- name: Distribute to nodes
+  shell: |
+    scp crictl-v1.18.0-linux-amd64.tar.gz runc.amd64 cni-plugins-linux-amd64-v0.8.6.tgz \
+    containerd-1.3.6-linux-amd64.tar.gz kubectl kube-proxy kubelet {{ item }}:~/
+  args:
+    chdir: /tmp
+  with_items: "{{ groups['nodes'] }}"
+  become: no

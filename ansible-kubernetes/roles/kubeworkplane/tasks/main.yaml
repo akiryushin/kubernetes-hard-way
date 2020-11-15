@@ -5,12 +5,6 @@
   with_items: "{{ os_depend }}"
   become: yes
 
-- name: Downloads the Kubernetes Worker Binaries
-  get_url:
-    url: "{{ item.url }}"
-    dest: /home/vagrant
-  with_items: "{{ url_worker_bin }}"
-
 - name: Create directories
   file:
     path: "{{ item.path }}"

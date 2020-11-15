@@ -1,9 +1,3 @@
-url_kube_services:
-  - url: "https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kube-apiserver"
-  - url: "https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kube-controller-manager"
-  - url: "https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kube-scheduler"
-  - url: "https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kubectl"
-
 kube_config_files:
   - name: kube-controller-manager.service
     path: /etc/systemd/system/kube-controller-manager.service

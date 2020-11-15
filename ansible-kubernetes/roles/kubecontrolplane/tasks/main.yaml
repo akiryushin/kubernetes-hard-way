@@ -1,13 +1,16 @@
 - name: Create directory
   shell: sudo mkdir -p /etc/kubernetes/config
 
-- name: Downloads the Kubernetes Controller Binaries
-  get_url:
-    url: "{{ item.url }}"
-    dest: /usr/local/bin
-    mode: '0777'
-  with_items: "{{ url_kube_services }}"
+- name: Move services
+  shell: "mv {{ item }} /usr/local/bin/"
+  args:
+    chdir: /tmp
   become: yes
+  with_items:
+    - kube-apiserver
+    - kube-controller-manager
+    - kube-scheduler
+    - kubectl
 
 - name: Configure the Kubernetes API Server
   shell: |

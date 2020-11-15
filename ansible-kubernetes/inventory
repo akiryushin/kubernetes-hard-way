@@ -3,9 +3,11 @@ proxy ansible_host=10.240.0.100
 
 [masters]
 master-0 ansible_host=10.240.0.30
+master-1 ansible_host=10.240.0.31
 
 [nodes]
 node-0 ansible_host=10.240.0.40
+node-1 ansible_host=10.240.0.41
 
 [kuber:children]
 masters

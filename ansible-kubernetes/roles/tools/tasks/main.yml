@@ -1,13 +1,5 @@
-- name: Download tools
-  get_url:
-    url: "{{ item.url }}"
-    dest: "/tmp/{{ item.name}}"
-    mode: '0777'
-    timeout: 15
-  with_items: "{{ tools }}"
-
 - name: Move tools to bin
-  shell: "mv /tmp/{{ item.name }} /usr/local/bin/"
+  shell: "cp /tmp/{{ item.name }} /usr/local/bin/{{ item.name }}"
   with_items: "{{ tools }}"
 
 - name: Ensure CFSSL
